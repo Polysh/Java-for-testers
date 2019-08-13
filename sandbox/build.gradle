@@ -9,4 +9,5 @@ repositories{
 
 dependencies {
     compile 'org.testng:testng:7.0.0-beta7'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2'
 }

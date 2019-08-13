@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/sandbox/Could not resolve org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2." />
+      <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-java/4.0.0-alpha-2/selenium-java-4.0.0-alpha-2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
