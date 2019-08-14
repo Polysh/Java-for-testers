@@ -1,10 +1,7 @@
 package ru.stqa.jft.addressbook;
 
 import lib.Driver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +9,15 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class ContactCreationTest {
-    private WebDriver wd;
+    private static WebDriver wd;
+
+    public static Object executeJS(String query) {
+        return ((JavascriptExecutor) (wd)).executeScript(query);
+    }
+
+    public static WebElement jQuery(String selector) {
+        return (WebElement) executeJS("return jQuery.find(\"" + selector + "\")[0]");
+    }
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
@@ -45,7 +50,8 @@ public class ContactCreationTest {
     }
 
     private void submitContactCreation() {
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
+        WebElement submit = jQuery("[name = 'submit']:visible");
+        submit.click();
     }
 
     private void fillContactData(ContactData contactData) {
