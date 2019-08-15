@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="449.0" y="123.0">ru.stqa.jft.addressbook.tests.GroupDeletionTest</node>
+    <node x="252.0" y="0.0">ru.stqa.jft.addressbook.tests.TestBase</node>
+    <node x="0.0" y="123.0">ru.stqa.jft.addressbook.tests.ContactCreationTest</node>
+    <node x="229.0" y="123.0">ru.stqa.jft.addressbook.tests.GroupCreationTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.stqa.jft.addressbook.tests.GroupCreationTest" target="ru.stqa.jft.addressbook.tests.TestBase">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="ru.stqa.jft.addressbook.tests.GroupDeletionTest" target="ru.stqa.jft.addressbook.tests.TestBase">
+      <point x="0.0" y="-25.5" />
+      <point x="548.5" y="98.0" />
+      <point x="380.33333333333337" y="98.0" />
+      <point x="51.33333333333334" y="36.5" />
+    </edge>
+    <edge source="ru.stqa.jft.addressbook.tests.ContactCreationTest" target="ru.stqa.jft.addressbook.tests.TestBase">
+      <point x="0.0" y="-25.5" />
+      <point x="104.5" y="98.0" />
+      <point x="277.66666666666663" y="98.0" />
+      <point x="-51.33333333333334" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
