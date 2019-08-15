@@ -50,8 +50,7 @@ public class ContactCreationTest {
     }
 
     private void submitContactCreation() {
-        WebElement submit = jQuery("[name = 'submit']:visible");
-        submit.click();
+        wd.findElement(By.xpath("//input[21]")).click();
     }
 
     private void fillContactData(ContactData contactData) {
