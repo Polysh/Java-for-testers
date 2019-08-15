@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public static WebDriver wd;
-    private ContactHelper contactHelper;
 
+    private ContactHelper contactHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
@@ -20,7 +20,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         wd = Driver.getDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        wd.get("http://localhost:8080/addressbook/group.php");
+        wd.get("http://localhost:8080/addressbook");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         contactHelper = new ContactHelper(wd);
@@ -37,7 +37,6 @@ public class ApplicationManager {
     }
 
     public void stop() {
-        wd.findElement(By.linkText("Logout")).click();
         wd.quit();
     }
 
