@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 
 import java.io.File;
@@ -60,8 +62,13 @@ public class Driver implements Runnable {
         return browser;
     }
 
-    public static WebDriver getDriver() throws IOException {
-        createDriver();
+    public static WebDriver getDriver(String browser) {
+//        String browser = BrowserType.CHROME;
+        if (browser.equals(BrowserType.CHROME)) {
+            createDriver();
+        } else if (browser.equals(BrowserType.IE)) {
+                webdriver = new InternetExplorerDriver();
+        }
         return webdriver;
     }
 
