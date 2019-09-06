@@ -1,6 +1,7 @@
 package ru.stqa.jft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.jft.addressbook.model.ContactData;
 

@@ -63,7 +63,6 @@ public class Driver implements Runnable {
     }
 
     public static WebDriver getDriver(String browser) {
-//        String browser = BrowserType.CHROME;
         if (browser.equals(BrowserType.CHROME)) {
             createDriver();
         } else if (browser.equals(BrowserType.IE)) {
