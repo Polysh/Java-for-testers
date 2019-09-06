@@ -1,7 +1,6 @@
 package ru.stqa.jft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.jft.addressbook.model.ContactData;
 
@@ -50,7 +49,18 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='update'])[2]"));
     }
 
-    public void submitAlertMessage(){
+    public void submitAlertMessage() {
         wd.switchTo().alert().accept();
+    }
+
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillContactData(contact);
+        submitContactCreation();
+        returnContactPage();
+    }
+
+    public boolean isThereAContact() {
+        return isThereAnItem();
     }
 }
