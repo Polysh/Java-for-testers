@@ -8,15 +8,15 @@ import ru.stqa.jft.addressbook.appmanager.ApplicationManager;
 public class TestBase {
 
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
     @BeforeMethod(alwaysRun = true)
-    public void setUp() throws Exception {
+    public void setUp() {
         app.init();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public void tearDown() {
         app.stop();
     }
 
