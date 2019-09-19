@@ -23,7 +23,7 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsFromXml() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("test.contactsXml"))));
         String xml = "";
         String line = reader.readLine();
         while (line != null) {
@@ -40,7 +40,7 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsFromJson() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("test.contactsJson"))));
         String json = "";
         String line = reader.readLine();
         while (line != null) {

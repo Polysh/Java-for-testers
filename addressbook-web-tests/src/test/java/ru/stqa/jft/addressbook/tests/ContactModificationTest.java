@@ -1,8 +1,5 @@
 package ru.stqa.jft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.ContactData;
 import ru.stqa.jft.addressbook.model.Contacts;
@@ -16,8 +13,7 @@ public class ContactModificationTest extends TestBase {
     public void testContactModification() {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstName("Тест").withMiddleName("Тестович")
-                    .withLastName("Тестик").withNik("баг").withPhone("9630000001").withEmail("test@mail.ru"));
+            createDefaultContact();
         }
         Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
@@ -29,6 +25,5 @@ public class ContactModificationTest extends TestBase {
         Contacts after = app.contact().all();
         assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));
     }
-
 
 }

@@ -48,7 +48,7 @@ public class GroupDataGenerator {
         } else if (format.equals("json")) {
             saveAsJson(groups, new File(file));
         } else {
-            System.out.println("Unrecognized forma" + format);
+            System.out.println("Unrecognized format" + format);
 
         }
     }
@@ -56,9 +56,9 @@ public class GroupDataGenerator {
     private void saveAsJson(List<GroupData> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+//        вариант записи через try()
+        try(Writer writer = new FileWriter(file)){
+        writer.write(json);}
     }
 
     private void saveAsXML(List<GroupData> groups, File file) throws IOException {
