@@ -22,6 +22,7 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private String browser;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -32,6 +33,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHelper = new DbHelper();
 
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
@@ -45,6 +47,8 @@ public class ApplicationManager {
         contactHelper = new ContactHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.Password"));
+
+
     }
 
     public static Object executeJS(String query) {
@@ -69,5 +73,9 @@ public class ApplicationManager {
 
     public ContactHelper contact() {
         return contactHelper;
+    }
+
+    public DbHelper db(){
+        return dbHelper;
     }
 }

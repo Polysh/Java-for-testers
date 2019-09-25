@@ -3,31 +3,49 @@ package ru.stqa.jft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String firstName;
     @Expose
+    @Column(name = "middlename")
     private String middleName;
     @Expose
+    @Column(name = "lastname")
     private String lastName;
-
+    @Transient
     private String nik;
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String phone;
+    @Transient
     private String homePhone;
-    private String workPhone;
+
+    transient private String workPhone;
     @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
-    private String allPhones;
-    private String allEmails;
+    transient private String allPhones;
+    transient private String allEmails;
+    @Transient
     private String email2;
+    @Transient
     private String email3;
+    @Transient
     private String address;
 
     public String getFirstName() {
@@ -172,13 +190,14 @@ public class ContactData {
         ContactData that = (ContactData) o;
         return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
+                Objects.equals(middleName, that.middleName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(id, firstName, middleName, lastName, phone, email);
     }
-
-
 }

@@ -11,18 +11,19 @@ public class ContactModificationTest extends TestBase {
 
     @Test
     public void testContactModification() {
+        if (app.db().contacts().size() ==0){
         app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
-            createDefaultContact();
+        createDefaultContact();
         }
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("Тестюк")
                 .withMiddleName("Тестович").withLastName("Тестиковский").withNik("баг")
                 .withPhone("9630000001").withEmail("test@mail.ru");
+        app.goTo().homePage();
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));
     }
 
