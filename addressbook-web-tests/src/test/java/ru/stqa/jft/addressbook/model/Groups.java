@@ -27,15 +27,15 @@ public class Groups extends ForwardingSet<GroupData> {
         return delegate;
     }
 
-    public Groups withAdded(GroupData contact) {
+    public Groups withAdded(GroupData group) {
         Groups groups = new Groups(this);
-        groups.add(contact);
+        groups.add(group);
         return groups;
     }
 
-    public Groups withOut(GroupData contact) {
+    public Groups withOut(GroupData group) {
         Groups groups = new Groups(this);
-        groups.remove(contact);
+        groups.remove(group);
         return groups;
     }
 }

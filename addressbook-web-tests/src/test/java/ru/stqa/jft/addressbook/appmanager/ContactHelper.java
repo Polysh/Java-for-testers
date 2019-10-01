@@ -3,10 +3,15 @@ package ru.stqa.jft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
 import ru.stqa.jft.addressbook.model.Contacts;
 
 import java.util.List;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class ContactHelper extends HelperBase {
 
@@ -32,7 +37,12 @@ public class ContactHelper extends HelperBase {
         click(By.name("home"));
         type(By.name("mobile"), contactData.getPhone());
         type(By.name("email"), contactData.getEmail());
-
+        if (contactData.getGroups().size() > 0) {
+            assertTrue(contactData.getGroups().size() == 1);
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+        } else {
+            assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void initContactCreation() {
@@ -139,5 +149,18 @@ public class ContactHelper extends HelperBase {
         WebElement row = checkbox.findElement(By.xpath("./../.."));
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
+    }
+
+    public void putInGroup() {
+        click(By.name("to_group"));
+        click(wd.findElements(By.tagName("option")).iterator().next());
+        click(By.name("add"));
+
+    }
+
+    public void deleteFromGroup() {
+        if (wd.findElement(By.name("remove")).isEnabled()) {
+            click(By.name("remove"));
+                }
     }
 }
