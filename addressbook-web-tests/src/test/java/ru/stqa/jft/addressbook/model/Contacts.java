@@ -14,7 +14,7 @@ public class Contacts extends ForwardingSet<ContactData> {
         this.delegate = new HashSet<ContactData>(contacts.delegate);
     }
 
-    public Contacts(){
+    public Contacts() {
         this.delegate = new HashSet<ContactData>();
     }
 
@@ -27,15 +27,26 @@ public class Contacts extends ForwardingSet<ContactData> {
         return delegate;
     }
 
-    public Contacts withAdded(ContactData contact){
+    public Contacts withAdded(ContactData contact) {
         Contacts contacts = new Contacts(this);
         contacts.add(contact);
         return contacts;
     }
 
-    public Contacts withOut(ContactData contact){
+    public Contacts withOut(ContactData contact) {
         Contacts contacts = new Contacts(this);
         contacts.remove(contact);
         return contacts;
+    }
+
+    public ContactData find(ContactData contact) {
+        Contacts contacts = new Contacts(this);
+        ContactData baseContact = new ContactData();
+        for (ContactData cont : contacts) {
+            cont = contacts.iterator().next();
+            if (cont.getId() == contact.getId())
+                baseContact = cont;
+        }
+        return baseContact;
     }
 }

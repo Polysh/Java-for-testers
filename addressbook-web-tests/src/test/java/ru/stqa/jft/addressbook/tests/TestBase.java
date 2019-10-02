@@ -86,4 +86,12 @@ public class TestBase {
         }
     }
 
+    public void putContactInNewGroup(ContactData contact) {
+        app.goTo().groupPage();
+        createDefaultGroup();
+        app.goTo().homePage();
+        app.contact().selectById(contact.getId());
+        app.contact().putInGroup(TestBase.app.db().groups().stream().mapToInt((c) -> c.getId()).max().getAsInt());
+    }
+
 }

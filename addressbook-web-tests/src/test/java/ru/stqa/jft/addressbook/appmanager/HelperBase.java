@@ -14,7 +14,7 @@ public class HelperBase {
     }
 
     protected void click(WebElement element) {
-       element.click();
+        element.click();
     }
 
     protected void type(By locator, String text) {

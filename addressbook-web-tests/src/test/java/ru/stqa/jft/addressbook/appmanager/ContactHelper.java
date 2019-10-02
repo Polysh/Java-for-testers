@@ -151,16 +151,26 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-    public void putInGroup() {
+    public void putInGroup(int id) {
         click(By.name("to_group"));
-        click(wd.findElements(By.tagName("option")).iterator().next());
+        click(By.xpath("//select[@name = 'to_group']/option[@value = '" + id + "']"));
         click(By.name("add"));
 
     }
 
-    public void deleteFromGroup() {
+    public void deleteFromGroup(String name) {
         if (wd.findElement(By.name("remove")).isEnabled()) {
             click(By.name("remove"));
-                }
+            contactCache = null;
+            click(By.linkText("group page \"" + name + "\""));
+        }
+    }
+
+
+    public void selectGroup(int id) {
+        click(By.name("group"));
+        click(By.xpath("//select[@name = 'group']/option[@value = '" + id + "']"));
+        contactCache = null;
+
     }
 }

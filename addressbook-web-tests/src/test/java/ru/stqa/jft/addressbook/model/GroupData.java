@@ -32,8 +32,8 @@ public class GroupData {
 
 
 
-    @ManyToMany(mappedBy = "groups")
-    private Set<ContactData> contacts = new HashSet<ContactData>();
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    public Set<ContactData> contacts = new HashSet<ContactData>();
 
     public String getName() {
         return name;

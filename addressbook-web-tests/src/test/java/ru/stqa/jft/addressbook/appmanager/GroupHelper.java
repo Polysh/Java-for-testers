@@ -95,4 +95,13 @@ public class GroupHelper extends HelperBase {
         groupCache = null;
         returnGroupPage();
     }
+
+//    public GroupData createNewGroup(GroupData group) {
+//        initGroupCreation();
+//        fillGroupForm(group);
+//        submitGroupCreation();
+//        groupCache = null;
+//        returnGroupPage();
+//      return new GroupData();
+//    }
 }
