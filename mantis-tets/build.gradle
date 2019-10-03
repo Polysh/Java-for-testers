@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:7.0.0-beta7'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2'
+    implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
