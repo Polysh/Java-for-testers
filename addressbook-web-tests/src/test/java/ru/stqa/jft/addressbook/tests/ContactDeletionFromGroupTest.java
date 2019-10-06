@@ -1,45 +1,48 @@
 package ru.stqa.jft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.ContactData;
 import ru.stqa.jft.addressbook.model.Contacts;
 import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
-import java.util.Set;
-
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionFromGroupTest extends TestBase {
 
     @Test
     public void testContactDeletionFromGroup() {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            createDefaultGroup();
+        }
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
+            createDefaultContact();
+        }
         Groups groups = app.db().groups();
-        Assert.assertTrue(groups.size() > 0, "Группы не найдены");
-        app.goTo().homePage();
-        Contacts fullList = app.db().contacts();
-        ContactData deletedContact = fullList.iterator().next();
-        for (int i = 0; i < groups.size(); i++) {
-            GroupData group = (GroupData) groups.delegate.toArray()[i];
+        for (GroupData group : groups) {
             app.contact().selectGroup(group.getId());
-            Contacts contactsInGroup = app.contact().all();
+            Contacts contactsInGroupBefore = group.getContacts();
 
-            if (contactsInGroup.size() > 0) {
-                for (ContactData contact : contactsInGroup) {
-                    if (contact.getId() == deletedContact.getId()) {
-                        app.contact().selectById(deletedContact.getId());
-                        app.contact().deleteFromGroup(group.getName());
-                        Set<ContactData> contactInGroupsNew = app.contact().all();
-                        assertThat("Контакт не был удален из группы",
-                                ((Contacts) contactInGroupsNew).find(deletedContact).getFirstName() == null);
-                        return;
-                    }
-                }
+            if (contactsInGroupBefore.size() == 0) {
+                putNewContactInGroup(group);
+                app.goTo().homePage();
+                app.contact().selectGroup(group.getId());
             }
+            ContactData contact = app.contact().all().iterator().next();
+            app.contact().selectById(contact.getId());
+            app.contact().deleteFromGroup(group.getName());
+            contact.fromGroup(group);
+            Contacts contactsInGroupAfter = group.getContacts();
+            assertThat(contactsInGroupAfter, equalTo(contactsInGroupBefore.withOut(contact)));
+            return;
+
         }
     }
-
 }
+
+
 
 

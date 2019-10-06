@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class TestBase {
 
-
     protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
     public TestBase() {
@@ -24,6 +23,4 @@ public class TestBase {
     public void tearDown() {
         app.stop();
     }
-
-
 }

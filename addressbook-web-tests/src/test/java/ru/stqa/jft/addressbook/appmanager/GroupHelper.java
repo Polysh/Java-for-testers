@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GroupHelper extends HelperBase {
 
-    private Groups groupCache = null;
+    protected Groups groupCache = null;
 
     public GroupHelper(WebDriver wd) {
         super(wd);
@@ -96,12 +96,13 @@ public class GroupHelper extends HelperBase {
         returnGroupPage();
     }
 
-//    public GroupData createNewGroup(GroupData group) {
-//        initGroupCreation();
-//        fillGroupForm(group);
-//        submitGroupCreation();
-//        groupCache = null;
-//        returnGroupPage();
-//      return new GroupData();
-//    }
+    public GroupData findInGroups(Groups groups, int group_id) {
+        GroupData newGroup = null;
+        for (GroupData group : groups) {
+            if (group.getId() == group_id) newGroup = group;
+        }
+        return newGroup;
+    }
+
+
 }

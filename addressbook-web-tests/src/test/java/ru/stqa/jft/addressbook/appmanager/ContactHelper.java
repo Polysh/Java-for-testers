@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.ContactData;
 import ru.stqa.jft.addressbook.model.Contacts;
 
@@ -155,6 +154,8 @@ public class ContactHelper extends HelperBase {
         click(By.name("to_group"));
         click(By.xpath("//select[@name = 'to_group']/option[@value = '" + id + "']"));
         click(By.name("add"));
+        GroupHelper group = new GroupHelper(wd);
+        group.groupCache = null;
 
     }
 
@@ -169,8 +170,22 @@ public class ContactHelper extends HelperBase {
 
     public void selectGroup(int id) {
         click(By.name("group"));
-        click(By.xpath("//select[@name = 'group']/option[@value = '" + id + "']"));
+        switch (id) {
+            case 0:
+                click(By.xpath("//select[@name = 'group']/option[text() = '[all]']"));
+                break;
+            default:
+                click(By.xpath("//select[@name = 'group']/option[@value = '" + id + "']"));
+                break;
+        }
         contactCache = null;
+    }
 
+    public ContactData findInContacts(Contacts contacts, int contact_id) {
+        ContactData newContact = null;
+        for (ContactData contact : contacts) {
+            if (contact.getId() == contact_id) newContact = contact;
+        }
+        return newContact;
     }
 }

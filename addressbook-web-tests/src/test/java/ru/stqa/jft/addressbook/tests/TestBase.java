@@ -91,7 +91,18 @@ public class TestBase {
         createDefaultGroup();
         app.goTo().homePage();
         app.contact().selectById(contact.getId());
-        app.contact().putInGroup(TestBase.app.db().groups().stream().mapToInt((c) -> c.getId()).max().getAsInt());
+        int group_id = app.db().groups().stream().mapToInt((g) -> g.getId()).max().getAsInt();
+        app.contact().putInGroup(group_id);
+        GroupData group = app.group().findInGroups(contact.getGroups(), group_id);
+        contact.inGroup(group);
     }
 
+    public void putNewContactInGroup(GroupData group) {
+        app.goTo().homePage();
+        app.contact().selectGroup(0);
+        ContactData contact = app.db().contacts().iterator().next();
+        app.contact().selectById(contact.getId());
+        app.contact().putInGroup(group.getId());
+        contact.inGroup(group);
+    }
 }

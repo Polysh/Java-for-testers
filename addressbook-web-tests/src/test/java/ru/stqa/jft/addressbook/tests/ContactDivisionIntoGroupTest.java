@@ -6,40 +6,48 @@ import ru.stqa.jft.addressbook.model.Contacts;
 import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
-import java.util.Set;
-
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDivisionIntoGroupTest extends TestBase {
 
     @Test
     public void testContactDivisionIntoGroup() {
+
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            createDefaultGroup();
+        }
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
+            createDefaultContact();
+        }
         Groups groups = app.db().groups();
-        app.goTo().homePage();
         Contacts contacts = app.db().contacts();
-        Contacts fullList = app.contact().all();
-        ContactData grouppedContact = fullList.iterator().next();
-        app.contact().selectById(grouppedContact.getId());
+        for (ContactData contact : contacts) {
+            Groups contactGroupsBefore = contact.getGroups();
+            if (groups.size() > contactGroupsBefore.size()) {
+                app.contact().selectById(contact.getId());
+                for (int i = 0; i < groups.size(); i++) {
+                    GroupData group = (GroupData) groups.delegate.toArray()[i];
+                    if (!contact.groups.contains(group)) {
+                        app.contact().putInGroup(group.getId());
+                        contact.inGroup(group);
 
-        ContactData baseContact = contacts.find(grouppedContact);
-        Set<GroupData> contactGroups = baseContact.groups;
-
-        if (groups.size() == contactGroups.size()) {
-            putContactInNewGroup(grouppedContact);
-        } else {
-            for (int i = 0; i < groups.size(); i++) {
-                GroupData group = (GroupData) groups.delegate.toArray()[i];
-                if (!contactGroups.contains(group)) {
-                    app.contact().putInGroup(group.getId());
-                    return;
+                        Groups contactGroupsAfter = contact.getGroups();
+                        assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withAdded(group)));
+                        return;
+                    }
+                }
+            } else {
+                if (groups.size() == contactGroupsBefore.size() && !contacts.iterator().hasNext()) {
+                    putContactInNewGroup(contact);
+                    Groups contactGroupsAfter = contact.getGroups();
+                    assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size() + 1));
                 }
             }
         }
-        Set<GroupData> contactGroupsNew = app.db().contacts().find(grouppedContact).groups;
-        assertThat("Контакт не был добавлен в новую группу",
-                contactGroupsNew.size() == contactGroups.size() + 1);
     }
-
 
 }
 
