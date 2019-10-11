@@ -9,4 +9,4 @@ $g_default_language = 'english';
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
 $g_smtp_host = 'localhost';
 
-$g_crypto_master_salt     = 'bmLgmSc85qhnuipxplfZSisgMDLkN4PjqOg3CfGCvx8=';
+$g_crypto_master_salt     = 'P42fOwIHBNBs04CTX68WqUB21BzaVdxlf7fg5wT9Auk=';

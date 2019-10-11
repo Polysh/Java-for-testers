@@ -24,6 +24,16 @@ public class ContactDivisionIntoGroupTest extends TestBase {
         }
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
+        GroupData workGroup = null;
+
+//        for (GroupData group: groups){
+//            group.getContacts().size() < contacts.size() ? workGroup = group : if(!groups.iterator().hasNext()){ createDefaultGroup();}
+//        }
+//
+//
+//
+//
+
         for (ContactData contact : contacts) {
             Groups contactGroupsBefore = contact.getGroups();
             if (groups.size() > contactGroupsBefore.size()) {

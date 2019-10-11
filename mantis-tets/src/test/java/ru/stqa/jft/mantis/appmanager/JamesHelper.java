@@ -80,7 +80,7 @@ public class JamesHelper {
             StringBuffer sb = new StringBuffer();
             char ch = (char) in.read();
             while (true) {
-                System.out.println(ch);
+                System.out.print(ch);
                 sb.append(ch);
                 if (ch == lastChar) {
                     if (sb.toString().endsWith(pattern)) {
@@ -98,15 +98,15 @@ public class JamesHelper {
 
     public void createUser(String name, String passwd) {
         initTelnetSession();
-        write("adduser" + name + " " + passwd);
-        String result = readUntil("User" + name + " added");
+        write("adduser " + name + " " + passwd);
+        String result = readUntil("User " + name + " added");
         closeTelnetSession();
     }
 
     public void deleteUser(String name) {
         initTelnetSession();
-        write("deluser" + name);
-        String result = readUntil("User" + name + " deleted");
+        write("deluser " + name);
+        String result = readUntil("User " + name + " deleted");
         closeTelnetSession();
 
     }
